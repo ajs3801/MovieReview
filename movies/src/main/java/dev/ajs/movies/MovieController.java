@@ -23,7 +23,7 @@ public class MovieController {
     }
 
     @GetMapping("/{imdbId}")
-    public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable ObjectId imdbId){
+    public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable String imdbId){
         System.out.println("[FETCH] " + service.singleMovie(imdbId));
         return new ResponseEntity<Optional<Movie>>(service.singleMovie(imdbId), HttpStatus.OK);
     }
