@@ -11,7 +11,7 @@ import { Routes, Route } from 'react-router-dom';
 
 function App() {
 
-  const [movie,setMoives] = useState();
+  const [movies,setMoives] = useState();
 
   const getMovies = async () => {
     try{
@@ -20,6 +20,7 @@ function App() {
 
       setMoives(response.data);
     }catch(err) {
+      console.log("ERROR in getMovies");
       console.log(err);
     }
   };
@@ -27,12 +28,12 @@ function App() {
   useEffect(() => {
     getMovies();
   }, []);
-
+  
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route path='/' element={<Home/>}></Route>
+        <Route path='/' element={<Layout />}>
+          <Route path='/' element={<Home movies={movies} />}></Route>
         </Route>
       </Routes>
     </div>

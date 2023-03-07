@@ -1,9 +1,12 @@
 import { React } from 'react';
+import Hero from '../Hero/Hero';
 
-const Home = () => {
+const Home = ({movies}) => {
+  console.log("LOG in HOME");
+  console.log(movies);
   return (
     <div>
-      Welcome!
+      <Hero movies={movies} />
     </div>
   );
 };

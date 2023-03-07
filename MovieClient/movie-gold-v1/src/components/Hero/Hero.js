@@ -4,16 +4,25 @@ import { Paper } from "@mui/material";
 import './Hero.css';
 
 const Hero = ({movies}) => {
+  console.log("LOG in Hero");
+  console.log(movies);
   return (
-    <div>
+    <div className="movie-carousel-container">
       <Carousel>
-        {
-          movies.map((movie) => {
+        { 
+          movies?.map((movie) => {
             return (
               <Paper>
                 <div className="movie-card-container">
                   <div className="movie-card">
-
+                    <div className="movie-detail">
+                      <div className="movie-poster">
+                        <img src={movie.poster} alt="" />
+                      </div>
+                      <div className="movie-title">
+                        <h4>{movie.title}</h4>
+                      </div>
+                    </div>  
                   </div>
                 </div>
               </Paper>
