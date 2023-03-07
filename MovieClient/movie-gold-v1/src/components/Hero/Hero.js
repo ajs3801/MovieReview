@@ -1,11 +1,12 @@
-import { Carousel } from "react-material-ui-carousel";
+import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
 
 import './Hero.css';
 
 const Hero = ({movies}) => {
-  console.log("LOG in Hero");
+  console.log("ERROR in Hero");
   console.log(movies);
+  
   return (
     <div className="movie-carousel-container">
       <Carousel>

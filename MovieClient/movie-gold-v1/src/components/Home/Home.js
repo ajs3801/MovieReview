@@ -1,8 +1,7 @@
-import { React } from 'react';
 import Hero from '../Hero/Hero';
 
 const Home = ({movies}) => {
-  console.log("LOG in HOME");
+  console.log("ERROR in Home");
   console.log(movies);
   return (
     <div>
