@@ -4,6 +4,11 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import Layout from './components/Layout/Layout';
+import Home from './components/Home/Home';
+
+import { Routes, Route } from 'react-router-dom';
+
 function App() {
 
   const [movie,setMoives] = useState();
@@ -21,10 +26,15 @@ function App() {
 
   useEffect(() => {
     getMovies();
-  }, [])
+  }, []);
+
   return (
     <div className="App">
-      
+      <Routes>
+        <Route path='/' element={<Layout/>}>
+          <Route path='/' element={<Home/>}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
