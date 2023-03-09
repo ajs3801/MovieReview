@@ -1,5 +1,5 @@
 
-const notFound = () => {
+const NotFound = () => {
   return (
     <div>
       <h1>This page not be found</h1>
@@ -7,4 +7,4 @@ const notFound = () => {
   );  
 };
 
-export default notFound;
+export default NotFound;

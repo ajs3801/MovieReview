@@ -1,5 +1,8 @@
 import {Form,Button} from 'react-bootstrap';
 
+// import style file
+import './reviewForm.styles.scss';
+
 const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
   return (
     <Form>

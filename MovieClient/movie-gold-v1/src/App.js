@@ -5,12 +5,12 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import Layout from './components/Layout/Layout';
-import Home from './components/Home/Home';
+import Layout from './components/Layout/Layout.component';
+import Home from './components/Home/Home.component';
 import Header from './components/header/Header';
-import Trailer from './components/trailer/Trailer';
-import Reviews from './components/reviews/Reviews';
-import notFound from './components/notFound/notFound';
+import Trailer from './components/trailer/Trailer.component';
+import Reviews from './components/reviews/Reviews.component';
+import NotFound from './components/notFound/NotFound.component';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -21,8 +21,8 @@ function App() {
 
   const getMovies = async () => {
     try{
+      // get the response
       const response = await axios.get("/api/v1/movies");
-      console.log(response.data);
 
       setMoives(response.data);
     }catch(err) {
@@ -39,6 +39,7 @@ function App() {
       setMovie(singleMovie);
       setReviews(singleMovie.reviews);
     } catch(error) {
+      console.log("ERROR in getMovieData");
       console.log(error);
     }
   }
@@ -54,8 +55,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home movies={movies} />}></Route>
           <Route path='/Trailer/:ytTrailerId' element={<Trailer/>}></Route>
-          <Route path='Reviews/:movieId' element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews} />} ></Route>
-          <Route path='*' element={<notFound />}></Route>
+          <Route path='/Reviews/:movieId' element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews} />} ></Route>
+          <Route path='*' element={<NotFound />}></Route>
         </Route>
       </Routes>
     </div>
