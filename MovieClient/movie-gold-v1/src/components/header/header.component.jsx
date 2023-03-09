@@ -6,6 +6,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 
+import './header.styles.scss';
+
 const Header = () => {
   return (
     <div>
@@ -16,16 +18,20 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-              <Nav
-                className="me-auto my-2 my-lg-0"
-                style={{maxHeight: '100px'}}
-                navbarScroll
-              >
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{maxHeight: '100px'}}
+              navbarScroll
+            >
               <NavLink className="nav-link" to="/">Home</NavLink>
               <NavLink className="nav-link" to="/watchList">watchList</NavLink>
             </Nav>
-            <Button variant="outline-info" className="me-2">Login</Button>
-            <Button variant="outline-info" >Register</Button>
+            <Navbar.Brand href="/login">
+              <Button variant="outline-info" className="me-2">Login</Button>
+            </Navbar.Brand>
+            <Navbar.Brand href="/register">
+              <Button variant="outline-info" >Register</Button>
+            </Navbar.Brand>
           </Navbar.Collapse>
         </Container>
       </Navbar>
