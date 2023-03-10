@@ -46,31 +46,32 @@ const Login = () => {
   // empty. So we are checking if the user is already logged in and
   // if so we are redirecting the user to the home page.
   // Otherwise we will do nothing and let the user to login.
-  const loadUser = async () => {
-    if (!user) {
-      const fetchedUser = await fetchUser();
-      if (fetchedUser) {
-        // Redirecting them once fetched.
-        redirectNow();
-      }
-    }
-  }
+  // const loadUser = async () => {
+  //   if (!user) {
+  //     const fetchedUser = await fetchUser();
+  //     if (fetchedUser) {
+  //       // Redirecting them once fetched.
+  //       redirectNow();
+  //     }
+  //   }
+  // }
 
   // This useEffect will run only once when the component is mounted.
   // Hence this is helping us in verifying whether the user is already logged in
   // or not.
-  useEffect(() => {
-    loadUser(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   loadUser(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // try to log-in
   const handleSubmit = async () => {
+    alert("clicked");
     try {
       const user = await emailPasswordLogin(email,password);
       if (user) {
-        console.log("sign in success");
+        alert("Success")
       } else {
-        console.log("cannot login");
+        alert("cannot login");
       }
     } catch (error) {
       alert(error)
