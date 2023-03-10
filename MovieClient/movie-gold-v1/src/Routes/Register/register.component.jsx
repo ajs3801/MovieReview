@@ -1,9 +1,16 @@
-import { useState } from 'react';
+// import required dependency
+import { useState, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
+// import styles
 import './register.styles.scss';
 
+// import components
 import FormInput from '../../components/form-input/form-input.component';
 import Button from '../../components/button/button.component';
+
+// import contexts
+import { UserContext } from '../../contexts/user.context';
 
 const defaultFormFields = {
   displayName: '',
@@ -13,6 +20,12 @@ const defaultFormFields = {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // useContext of userContext
+  const { emailPasswordSignup } = useContext(UserContext);
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -21,16 +34,33 @@ const Register = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
-    
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setFormFields({ ...formFields, [name]:value })
+  };
 
-    console.log(displayName, email, password, confirmPassword);
+  const handleSubmit = async () => {
+    try {
+      console.log(displayName, email, password, confirmPassword);
+      
+      // confirm password
+      if (password !== confirmPassword) {
+        alert("passwords do not match");
+        return;
+      }
+
+      const user = await emailPasswordSignup(email, password);
+
+      console.log("SIGN-UP done");
+      if (user) {
+        console.log("sign-up success");
+      } else {
+        console.log("ERROR in sign up");
+      }
+    } catch (error) {
+      console.log("ERROR occured");
+      alert(error);
+    }
   };
 
   return (
