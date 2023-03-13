@@ -2,6 +2,12 @@
 import { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+// import firebase
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from '../../utils/firebase.utils';
+
 // import styles
 import './register.styles.scss';
 
@@ -20,12 +26,6 @@ const defaultFormFields = {
 }
 
 const Register = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // useContext of userContext
-  const { emailPasswordSignup } = useContext(UserContext);
-
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -36,30 +36,35 @@ const Register = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]:value })
+    setFormFields({ ...formFields, [name]:value });
   };
 
   const handleSubmit = async () => {
+    event.preventDefault();
+
+    // confirm password
+    if (password !== confirmPassword) {
+      alert("passwords do not match");
+      return;
+    }
+
     try {
-      console.log(displayName, email, password, confirmPassword);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password,
+      );
       
-      // confirm password
-      if (password !== confirmPassword) {
-        alert("passwords do not match");
-        return;
-      }
+      await createUserDocumentFromAuth(user, {displayName});
 
-      const user = await emailPasswordSignup(email, password);
-
-      console.log("SIGN-UP done");
-      if (user) {
-        console.log("sign-up success");
-      } else {
-        console.log("ERROR in sign up");
+      resetFormFields();
+      // console.log(response);
+    } catch(error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Cannot create user, email already in use');
       }
-    } catch (error) {
-      console.log("ERROR occured");
-      alert(error);
+      else {
+        console.log("user creation encountered an error, ", error);
+      }
     }
   };
 

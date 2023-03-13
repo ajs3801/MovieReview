@@ -1,6 +1,11 @@
 // import required dependency
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { 
+  signInWithGooglePopUp,
+  createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
+} from '../../utils/firebase.utils';
 
 // import style file
 import './login.styles.scss';
@@ -19,14 +24,17 @@ const defaultFormFields = {
 }
 
 const Login = () => {
-  const navigation = useNavigate();
-  const location = useLocation();
-
+  // user context
   const { user, fetchUser, emailPasswordLogin } = useContext(UserContext);
 
   // useState of formfields (email and password)
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  // reset the form fields
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields); // set the form fields to default form
+  };
 
   // whenever email or password is changed
   const handleChange = (event) => {
@@ -41,40 +49,40 @@ const Login = () => {
     navigate(redirectTo ? redirectTo : "/");
   }
 
-  // Since there can be chances that the user is already logged in
-  // but whenever the app gets refreshed the user context will become
-  // empty. So we are checking if the user is already logged in and
-  // if so we are redirecting the user to the home page.
-  // Otherwise we will do nothing and let the user to login.
-  // const loadUser = async () => {
-  //   if (!user) {
-  //     const fetchedUser = await fetchUser();
-  //     if (fetchedUser) {
-  //       // Redirecting them once fetched.
-  //       redirectNow();
-  //     }
-  //   }
-  // }
-
-  // This useEffect will run only once when the component is mounted.
-  // Hence this is helping us in verifying whether the user is already logged in
-  // or not.
-  // useEffect(() => {
-  //   loadUser(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const logGoogleUser = async () => {
+    const { user } = await signInWithGooglePopUp();
+    const userDocRef = await createUserDocumentFromAuth(user);
+  };
 
   // try to log-in
-  const handleSubmit = async () => {
-    alert("clicked");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      const user = await emailPasswordLogin(email,password);
-      if (user) {
-        alert("Success")
-      } else {
-        alert("cannot login");
+      // get response
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email, 
+        password,
+      );
+
+      // reset the form fields
+      resetFormFields();
+      alert("login successfully");
+    } catch(error) {
+      switch(error.code) {
+        case'auth/wrong-password':
+          alert("incorrect password for email");
+          break;
+        
+        case 'auth/user-not-found':
+          alert("no user associated with this email");
+          break;
+
+        default: // default statement
+          console.log(error)
       }
-    } catch (error) {
-      alert(error)
+
+      alert("ERROR");
     }
   };
 
@@ -87,7 +95,8 @@ const Login = () => {
         <FormInput label="Password" type="password" required onChange={handleChange} name='password' value={password}/>
 
         <div className="buttons-container">
-          <Button type="submit" buttonType='google' onClick={handleSubmit}>Sign In</Button>
+          <Button type="submit" onClick={handleSubmit}>Sign In</Button>
+          <Button type="submit" buttonType='google' onClick={logGoogleUser}>Sign in with Google</Button>
         </div>
       </form>
     </div>

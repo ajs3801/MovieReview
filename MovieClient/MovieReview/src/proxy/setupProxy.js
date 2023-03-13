@@ -1,3 +1,7 @@
+/**
+ * proxy/setupProxy.js
+ * set-up for connecting
+ */
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
