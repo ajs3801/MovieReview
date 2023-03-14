@@ -32,7 +32,7 @@ const Register = () => {
   const { displayName, email, password, confirmPassword } = formFields;
 
   const moveToHome = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   // reset the Form fields
@@ -63,7 +63,7 @@ const Register = () => {
       await createUserDocumentFromAuth(user, {displayName});
 
       resetFormFields();
-        
+      
       // go to home
       moveToHome();
     } catch(error) {

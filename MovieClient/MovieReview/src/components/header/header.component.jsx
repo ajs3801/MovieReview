@@ -22,6 +22,11 @@ const Header = () => {
     await signOutUser();
   };
 
+  const checkCurrentUser = () => {
+    
+    console.log(currentUser ? "exist" : "None");
+  };
+
   return (
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -40,7 +45,7 @@ const Header = () => {
               <NavLink className="nav-link" to="/watchList">watchList</NavLink>
             </Nav>
             {
-              currentUser ?
+              !currentUser ?
               (
                 <div className="authentication">
                   <Navbar.Brand href="/login">

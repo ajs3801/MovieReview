@@ -27,6 +27,7 @@ const defaultFormFields = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   // user context
   const { user, fetchUser, emailPasswordLogin } = useContext(UserContext);
@@ -53,6 +54,8 @@ const Login = () => {
 
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopUp();
+    setCurrentUser(user);
+    setCurrentUser(currentUser);
     const userDocRef = await createUserDocumentFromAuth(user);
   };
 
@@ -70,6 +73,7 @@ const Login = () => {
       // reset the form fields
       resetFormFields();
       alert("login successfully");
+      setCurrentUser(user);
 
       moveToHome();
     } catch(error) {
