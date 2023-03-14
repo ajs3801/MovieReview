@@ -26,8 +26,14 @@ const defaultFormFields = {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  const moveToHome = () => {
+    navigate("/");
+  };
 
   // reset the Form fields
   const resetFormFields = () => {
@@ -57,7 +63,9 @@ const Register = () => {
       await createUserDocumentFromAuth(user, {displayName});
 
       resetFormFields();
-      // console.log(response);
+        
+      // go to home
+      moveToHome();
     } catch(error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');

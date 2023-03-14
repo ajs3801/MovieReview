@@ -1,6 +1,8 @@
 // import required dependency
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { browserHistory } from 'react-router';
+
 import { 
   signInWithGooglePopUp,
   createUserDocumentFromAuth,
@@ -24,12 +26,19 @@ const defaultFormFields = {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+
   // user context
   const { user, fetchUser, emailPasswordLogin } = useContext(UserContext);
 
   // useState of formfields (email and password)
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  // move to home
+  const moveToHome = () => {
+    navigate("/");
+  };
 
   // reset the form fields
   const resetFormFields = () => {
@@ -41,13 +50,6 @@ const Login = () => {
     const { name, value } = event.target;
     setFormFields({...formFields, [name]:value});
   };
-
-  // This function will redirect the user to the 
-  // appropriate page once the authentication is done.
-  const redirectNow = () => {
-    const redirectTo = location.search.replace("?redirectTo=", "");
-    navigate(redirectTo ? redirectTo : "/");
-  }
 
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopUp();
@@ -68,6 +70,8 @@ const Login = () => {
       // reset the form fields
       resetFormFields();
       alert("login successfully");
+
+      moveToHome();
     } catch(error) {
       switch(error.code) {
         case'auth/wrong-password':

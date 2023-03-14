@@ -9,25 +9,18 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 
+// sign out firabase function
+import { signOutUser } from "../../utils/firebase.utils";
+
 import './header.styles.scss';
 
 const Header = () => {
-  const { logOutUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
-  // This function is called when the user clicks the "Logout" button.
-  const logOut = async () => {
-    try {
-      // Calling the logOutUser function from the user context.
-      const loggedOut = await logOutUser();
-      // Now we will refresh the page, and the user will be logged out and
-      // redirected to the login page because of the <PrivateRoute /> component.
-      if (loggedOut) {
-        window.location.reload(true);
-      }
-    } catch (error) {
-      alert(error)
-    }
-  }
+  // sign out button handler
+  const signOutHandler = async () => {
+    await signOutUser();
+  };
 
   return (
     <div>
@@ -46,13 +39,23 @@ const Header = () => {
               <NavLink className="nav-link" to="/">Home</NavLink>
               <NavLink className="nav-link" to="/watchList">watchList</NavLink>
             </Nav>
-            <Navbar.Brand href="/login">
-              <Button variant="outline-info" className="me-2">Login</Button>
-            </Navbar.Brand>
-            <Navbar.Brand href="/register">
-              <Button variant="outline-info">Register</Button>
-            </Navbar.Brand>
-            <Button variant="outline-info" onClick={logOut}>Log-out</Button>
+            {
+              currentUser ?
+              (
+                <div className="authentication">
+                  <Navbar.Brand href="/login">
+                    <Button variant="outline-info" className="me-2">Login</Button>
+                  </Navbar.Brand>
+                  <Navbar.Brand href="/register">
+                    <Button variant="outline-info">Register</Button>
+                  </Navbar.Brand>
+                </div>
+              )
+              :
+              (
+                <Button variant="outline-info" onClick={signOutHandler}>Log out</Button>
+              )
+            }
           </Navbar.Collapse>
         </Container>
       </Navbar>
