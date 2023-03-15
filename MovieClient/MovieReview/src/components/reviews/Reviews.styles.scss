@@ -1,0 +1,41 @@
+.review-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.review-movie-poster {
+  border: 1px solid gold;
+}
+
+.review-main-content {
+
+}
+
+.review-form {
+  margin-bottom: 20px;
+}
+
+.review-list {
+  background-color: whitesmoke;
+  width: 500px;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
+.review {
+  color: black;
+
+}

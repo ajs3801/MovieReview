@@ -15,15 +15,16 @@ import { signOutUser } from "../../utils/firebase.utils";
 import './header.styles.scss';
 
 const Header = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser,setCurrentUser } = useContext(UserContext);
 
   // sign out button handler
   const signOutHandler = async () => {
+    setCurrentUser(null);
+    
     await signOutUser();
   };
 
   const checkCurrentUser = () => {
-    
     console.log(currentUser ? "exist" : "None");
   };
 

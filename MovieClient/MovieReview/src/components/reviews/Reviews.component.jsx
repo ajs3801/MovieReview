@@ -41,53 +41,29 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
   }
 
   return (
-    <Container>
-      <Row>
-        <Col><h3>Reviews</h3></Col>
-      </Row>
-      <Row className="mt-2">
-        <Col>
-          <img src={movie?.poster} alt="" />
-        </Col>
-        <Col>
-          {
-            <>
-              <Row>
-                <Col>
-                  <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a Review?" />  
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr />
-                </Col>
-              </Row>
-            </>
-          }
-          {
-            reviews?.map((r) => {
-              return(
-                <>
-                  <Row>
-                    <Col>{r.body}</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <hr />
-                    </Col>
-                  </Row>                                
-                </>
-              )
-            })
-          }
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <hr />
-        </Col>
-      </Row>        
-    </Container>
+    <div className='review-container'>
+      <div className='review-title'>
+        <h1>Review about {movie?.title}</h1>
+      </div>
+
+      <div className='review-content'>
+        <div className='review-movie-poster'><img src={movie?.poster} alt="" /></div>
+        <div className='review-main-content'>
+          <ReviewForm className="review-form" handleSubmit={addReview} revText={revText} labelText = "Write a Review?" />
+          <div className='review-list'>
+            {
+              reviews?.map((review) => {
+                return(
+                  <div key={review.id.timestamp}>
+                    <p className='review'>{review.body}</p>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
