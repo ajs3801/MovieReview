@@ -30,6 +30,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     getMovieData(movieId);
   },[])
 
+  // post the review
   const addReview = async (event) =>{
     event.preventDefault();
 

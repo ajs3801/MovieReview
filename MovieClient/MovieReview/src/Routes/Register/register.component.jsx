@@ -26,12 +26,16 @@ const defaultFormFields = {
 }
 
 const Register = () => {
+  // 
   const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
+  // 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const moveToHome = () => {
+
+  const moveToLogin = () => {
     navigate("/login");
   };
 
@@ -55,21 +59,19 @@ const Register = () => {
     }
 
     try {
-      console.log(displayName, email, password, confirmPassword);
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password,
         displayName,
       );
       
-      console.log(user);
-
       const response = await createUserDocumentFromAuth(user, displayName);
-      
       resetFormFields();
       
-      // go to home
-      moveToHome();
+      setCurrentUser(null);
+      
+      // go to login
+      moveToLogin();
     } catch(error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
