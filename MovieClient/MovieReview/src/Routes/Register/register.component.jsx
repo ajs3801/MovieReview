@@ -45,7 +45,7 @@ const Register = () => {
     setFormFields({ ...formFields, [name]:value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // confirm password
@@ -55,13 +55,17 @@ const Register = () => {
     }
 
     try {
+      console.log(displayName, email, password, confirmPassword);
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password,
+        displayName,
       );
       
-      await createUserDocumentFromAuth(user, {displayName});
+      console.log(user);
 
+      const response = await createUserDocumentFromAuth(user, displayName);
+      
       resetFormFields();
       
       // go to home

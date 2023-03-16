@@ -17,9 +17,9 @@ public class ReviewService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Review createReview(String reviewBody, String imdbId) {
+    public Review createReview(String reviewBody, String displayName, String imdbId) {
         // new Review form
-        Review review = repository.insert(new Review(reviewBody, LocalDateTime.now(), LocalDateTime.now()));
+        Review review = repository.insert(new Review(reviewBody, displayName, LocalDateTime.now(), LocalDateTime.now()));
 
         // update the review
         mongoTemplate.update(Movie.class)

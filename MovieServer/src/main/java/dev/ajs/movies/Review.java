@@ -14,12 +14,13 @@ import java.time.LocalDateTime;
 public class Review {
     private ObjectId id;
     private String body;
+    private String displayName;
     private LocalDateTime created;
     private LocalDateTime updated;
 
-    public Review(String body, LocalDateTime created, LocalDateTime updated) {
-
+    public Review(String body, String displayName, LocalDateTime created, LocalDateTime updated) {
         this.body = body;
+        this.displayName = displayName;
         this.created = created;
         this.updated = updated;
     }

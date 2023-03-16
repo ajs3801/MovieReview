@@ -1,14 +1,17 @@
 import React from 'react'
 
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useContext} from 'react';
 import {useParams} from 'react-router-dom';
-import {Container, Row, Col} from 'react-bootstrap';
+
+// import context
+import { UserContext } from '../../contexts/user.context';
 
 // import axios HTTP request
 import axios from 'axios';
 
 // import component
 import ReviewForm from '../reviewForm/reviewForm.component';
+import ReviewContent from '../review-content/reviewContent.component';
 
 // import styles
 import './Reviews.styles.scss';
@@ -17,7 +20,10 @@ import './Reviews.styles.scss';
 const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
   //
   const revText = useRef(); // contain review text
+  const { currentUser } = useContext(UserContext);
+
   let params = useParams();
+  
   const movieId = params.movieId;
 
   useEffect(()=>{
@@ -30,7 +36,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     const rev = revText.current;
 
     try {
-      const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
+      const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,displayName:currentUser.displayName,imdbId:movieId});
       const updatedReviews = [...reviews, {body:rev.value}];
       rev.value = "";
 
@@ -54,9 +60,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
             {
               reviews?.map((review) => {
                 return(
-                  <div key={review.id.timestamp}>
-                    <p className='review'>{review.body}</p>
-                  </div>
+                  <ReviewContent key={review.id.timestamp} review={review}/>
                 )
               })
             }

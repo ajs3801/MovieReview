@@ -72,9 +72,9 @@ const Login = () => {
 
       // reset the form fields
       resetFormFields();
+      console.log(user);
       alert("login successfully");
       setCurrentUser(user);
-
       moveToHome();
     } catch(error) {
       switch(error.code) {
