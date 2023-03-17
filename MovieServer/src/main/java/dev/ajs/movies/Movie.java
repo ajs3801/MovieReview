@@ -27,6 +27,9 @@ public class Movie {
     @DocumentReference
     private List<Review> reviews;
 
+    private Integer thumbsDown;
+    private Integer thumbsUp;
+
     // getter and setter function
     public ObjectId getId() {
         return id;
@@ -99,6 +102,14 @@ public class Movie {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public Integer getThumbsDown() { return thumbsDown; }
+
+    public void setThumbsDown(Integer thumbsDown) { this.thumbsDown = thumbsDown; }
+
+    public Integer getThumbsUp() { return thumbsUp; }
+
+    public void setThumbsUp(Integer thumbsUp) { this.thumbsUp = thumbsUp; }
 
 //    public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster, List<String> backdrops, List<String> genres) {
 //        this.imdbId = imdbId;

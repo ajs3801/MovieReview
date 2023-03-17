@@ -1,3 +1,32 @@
+.form-holder {
+
+}
+
 .form-container {
   width: 350px;
+}
+
+.thumbs-up-icon {
+  color: white;
+  margin-left: 10px;
+  padding-right: 10px;
+  font-size: 30px;
+  transition: color 400ms ease-out
+}
+
+.thumbs-up-icon:hover {
+  font-size: 40px;
+  color: blue;
+}
+
+.thumbs-down-icon {
+  color: grey;
+  margin-right: 10px;
+  font-size: 30px;
+  transition: color 400ms ease-out
+}
+
+.thumbs-down-icon:hover {
+  font-size: 40px;
+  color: red;
 }

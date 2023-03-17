@@ -20,7 +20,7 @@ const Header = () => {
   // sign out button handler
   const signOutHandler = async () => {
     setCurrentUser(null);
-    
+
     await signOutUser();
   };
 
@@ -59,7 +59,10 @@ const Header = () => {
               )
               :
               (
-                <Button variant="outline-info" onClick={signOutHandler}>Log out</Button>
+                <div className="auth-logout">
+                  <p className="auth-hello">Hello, {currentUser.displayName}</p>
+                  <Button variant="outline-info" onClick={signOutHandler}>Log out</Button>
+                </div>  
               )
             }
           </Navbar.Collapse>

@@ -7,20 +7,65 @@ import './reviewForm.styles.scss';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/user.context';
 
-const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
+// import axios HTTP request
+import axios from 'axios';
+
+// for icon
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+library.add(faThumbsDown);
+library.add(faThumbsUp);
+
+const ReviewForm = ({reviews,setReviews,movieId,revText,labelText,defaultValue}) => {
   const { currentUser } = useContext(UserContext);
 
+  // post the review
+  const addReview = async (event) =>{
+    event.preventDefault();
+
+    const rev = revText.current;
+
+    try {
+      const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,displayName:currentUser.displayName,imdbId:movieId});
+      const updatedReviews = [...reviews, {body:rev.value}];
+      rev.value = "";
+
+      setReviews(updatedReviews);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  // when user clicked thumbs-up btn
+  const handleThumbsUp = () => {
+
+  };
+
+  // when user clicked thumbs-donw btn
+  const handleThumbsDown = () => {
+
+  };
+
   return (
-    <Form className="form-container">
+    <div className="form-holder">
+      <Form className="form-container">
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>{labelText}</Form.Label>
             <Form.Control ref={revText} as="textarea" rows={3} defaultValue={defaultValue} />
         </Form.Group>
         {
-          currentUser ? (<Button variant="outline-info" onClick={handleSubmit}>Submit</Button>) : (<p>Login or Register first</p>)
+          currentUser ? 
+          (
+            <div className='btns-container'>
+              <Button variant="outline-info" onClick={addReview}>Submit</Button>
+              <FontAwesomeIcon className='thumbs-up-icon' onClick={handleThumbsUp} icon="fa-solid fa-thumbs-up" />
+              <FontAwesomeIcon className='thumbs-down-icon' onClick={handleThumbsDown} icon="fa-solid fa-thumbs-down" />
+            </div>
+          ) : (<p>Login or Register first</p>)
         }
-    </Form>   
-
+      </Form> 
+    </div>
   )
 }
 

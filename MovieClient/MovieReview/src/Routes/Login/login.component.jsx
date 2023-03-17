@@ -29,9 +29,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  // user context
-  const { user, fetchUser, emailPasswordLogin } = useContext(UserContext);
-
   // useState of formfields (email and password)
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -55,7 +52,6 @@ const Login = () => {
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopUp();
     setCurrentUser(user);
-    setCurrentUser(currentUser);
     const userDocRef = await createUserDocumentFromAuth(user);
   };
 
