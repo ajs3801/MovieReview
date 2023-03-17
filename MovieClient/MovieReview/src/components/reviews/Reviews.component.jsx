@@ -9,6 +9,7 @@ import { UserContext } from '../../contexts/user.context';
 // import component
 import ReviewForm from '../reviewForm/reviewForm.component';
 import ReviewContent from '../review-content/reviewContent.component';
+import Rating from '../rating/Rating.component';
 
 // import styles
 import './Reviews.styles.scss';
@@ -36,6 +37,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
       <div className='review-content'>
         <div className='review-movie-poster'><img src={movie?.poster} alt="" /></div>
         <div className='review-main-content'>
+          <Rating movie={movie} />
           <ReviewForm className="review-form" reviews={reviews} setReviews={setReviews} movieId={movieId} revText={revText} labelText = "Write a Review?" />
           <div className='review-list'>
             {
