@@ -28,7 +28,7 @@ const ReviewForm = ({reviews,setReviews,movieId,revText,labelText,defaultValue})
 
     try {
       const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,displayName:currentUser.displayName,imdbId:movieId});
-      const updatedReviews = [...reviews, {body:rev.value}];
+      const updatedReviews = [...reviews, {body:rev.value, displayName:currentUser.displayName}];
       rev.value = "";
 
       setReviews(updatedReviews);

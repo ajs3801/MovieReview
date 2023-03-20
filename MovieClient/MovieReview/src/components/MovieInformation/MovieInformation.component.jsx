@@ -7,9 +7,10 @@ import './MovieInformation.styles.scss';
 const MovieInformation = ({title, imdbID}) => {
   const navigate = useNavigate();
 
-    function reviews(movieId) {
-        navigate(`/Reviews/${movieId}`);
-    }
+  function reviews(movieId) {
+    navigate(`/Reviews/${movieId}`);
+  }
+
   return (
     <div className="movie-info-container">
       <div className='title-container'>

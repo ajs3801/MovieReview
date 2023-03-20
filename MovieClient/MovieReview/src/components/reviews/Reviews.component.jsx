@@ -16,7 +16,6 @@ import './Reviews.styles.scss';
 
 // get the paramter
 const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
-  //
   const revText = useRef(); // contain review text
   const { currentUser } = useContext(UserContext);
 
@@ -37,14 +36,17 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
       <div className='review-content'>
         <div className='review-movie-poster'><img src={movie?.poster} alt="" /></div>
         <div className='review-main-content'>
-          <Rating movie={movie} />
+          <Rating thumbsDown={movie?.thumbsDown} thumbsUp={movie?.thumbsUp} />
           <ReviewForm className="review-form" reviews={reviews} setReviews={setReviews} movieId={movieId} revText={revText} labelText = "Write a Review?" />
           <div className='review-list'>
             {
               reviews?.map((review) => {
-                return(
-                  <ReviewContent key={review.created} review={review}/>
-                )
+                console.log(review);
+                if (review) {
+                  return(
+                    <ReviewContent key={review?.created} review={review}/>
+                  )
+                }
               })
             }
           </div>
