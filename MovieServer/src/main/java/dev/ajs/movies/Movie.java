@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection="movies")
 @Data
@@ -30,6 +31,7 @@ public class Movie {
     private Integer thumbsDown;
     private Integer thumbsUp;
 
+    private Objects reputationList;
     // getter and setter function
     public ObjectId getId() {
         return id;
@@ -110,6 +112,10 @@ public class Movie {
     public Integer getThumbsUp() { return thumbsUp; }
 
     public void setThumbsUp(Integer thumbsUp) { this.thumbsUp = thumbsUp; }
+
+    public Objects getReputationList() { return reputationList; }
+
+    public void setReputationList(Objects reputationList) { this.reputationList = reputationList; }
 
 //    public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster, List<String> backdrops, List<String> genres) {
 //        this.imdbId = imdbId;

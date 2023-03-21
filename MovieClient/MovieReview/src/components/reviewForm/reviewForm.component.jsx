@@ -38,12 +38,12 @@ const ReviewForm = ({reviews,setReviews,movieId,revText,labelText,defaultValue})
   }
 
   // when user clicked thumbs-up btn
-  const handleThumbsUp = () => {
+  const handleThumbsUp = async () => {
 
   };
 
   // when user clicked thumbs-donw btn
-  const handleThumbsDown = () => {
+  const handleThumbsDown = async () => {
 
   };
 

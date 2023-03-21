@@ -41,7 +41,6 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
           <div className='review-list'>
             {
               reviews?.map((review) => {
-                console.log(review);
                 if (review) {
                   return(
                     <ReviewContent key={review?.created} review={review}/>

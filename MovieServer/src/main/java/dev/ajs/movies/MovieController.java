@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,5 +27,11 @@ public class MovieController {
     public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable String imdbId){
         System.out.println("[FETCH] " + service.singleMovie(imdbId));
         return new ResponseEntity<Optional<Movie>>(service.singleMovie(imdbId), HttpStatus.OK);
+    }
+
+    // post mapping for thumbs-up and thumbs-donw
+    @PostMapping()
+    public ResponseEntity<Review> createReview(@RequestBody ObjectId UserID, Boolean IsThumbsUp) {
+        return new ResponseEntity<Review>(service.createReputation(UserID, IsThumbsUp), HttpStatus.OK);
     }
 }
